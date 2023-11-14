@@ -1,0 +1,37 @@
+apiVersion: ztp.open-cluster-management.io/v1
+kind: HiveClusterConfig
+metadata:
+  name: "azure-cluster1"
+  namespace: "azure-cluster1"
+spec:
+  clusterName: demo-mc1
+  baseDomain: k8s.example.com
+  ocpVersion: 4.12.35
+  networking:
+    clusterNetwork:
+    hostPrefix:
+    machineNetwork:
+    serviceNetwork:
+  clusterPowerState: Running
+  acmClusterSetName: alphacorp
+  acmClusterLabels:
+    versedt.dev/acm-enabled: true
+    versedt.dev/environment: lab
+  sshPubkey: 'ssh-rsa AAAABBBBCCCCDDDD'
+  azure:
+    resourceGroup: example-rg
+    region: eastus
+    controlNodes:
+      replicas: 3
+      size: Standard_D4s_v3
+      osDiskSizeGB: 128
+    computeNodes:
+      - id: 0
+        replicas: 2
+        size: Standard_D2s_v3
+        osDiskSizeGB: 128
+        zones:
+        - "1"
+        - "2"
+        - "3"
+

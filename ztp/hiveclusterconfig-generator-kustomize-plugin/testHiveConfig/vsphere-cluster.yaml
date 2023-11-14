@@ -1,0 +1,50 @@
+apiVersion: ztp.open-cluster-management.io/v1
+kind: HiveClusterConfig
+metadata:
+  name: "vsphere-cluster1"
+  namespace: "vsphere-cluster1"
+spec:
+  clusterName: demo-mc1
+  baseDomain: k8s.example.com
+  ocpVersion: 4.12.35
+  networking:
+    clusterNetwork:
+    hostPrefix:
+    machineNetwork:
+    serviceNetwork:
+  clusterPowerState: Running
+  acmClusterSetName: alphacorp
+  acmClusterLabels:
+    versedt.dev/acm-enabled: true
+    versedt.dev/environment: lab
+  sshPubkey: 'ssh-rsa AAAABBBBCCCCDDDD'
+  vsphere:
+    apiVIP: 192.168.33.201
+    ingressVIP: 192.168.33.202
+    controlNodes:
+      replicas: 3
+      cpus: 4
+      coresPerSocket: 2
+      memoryMB: 16384
+      osDiskSizeGB: 120
+    computeNodes:
+      - id: 0
+        replicas: 3
+        cpus: 4
+        coresPerSocket: 2
+        memoryMB: 16384
+        osDiskSizeGB: 120
+        zones:
+        - "jax-1"
+        - "sjc-1"
+        - "nyc-1"
+    providerSecretRef: mysecret
+      # providerSecretRef.data:
+      #   vCenter
+      #   username
+      #   password
+      #   cluster
+      #   datacenter
+      #   datastore
+      #   folder
+      #   network
